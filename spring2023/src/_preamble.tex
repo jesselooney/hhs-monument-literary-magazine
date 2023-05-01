@@ -1,0 +1,59 @@
+\documentclass[12pt]{memoir}
+
+\usepackage{calc}
+
+\newlength{\pagewidth}
+\newlength{\pageheight}
+\newlength{\outertrim}
+\newlength{\innermargin}
+\newlength{\outermargin}
+
+\setlength{\pagewidth}{6in}
+\setlength{\pageheight}{9in}
+
+\setlength{\outertrim}{0.125in} %% >= 0.125in (CHECK THESE NUMBERS WITH KDP)
+
+\setlength{\innermargin}{0.375in} %% >= 0.375in
+\setlength{\outermargin}{0.25in} %% >= 0.25in
+
+\setstocksize{\pageheight + \outertrim * 2}{\pagewidth + \outertrim}
+\settrimmedsize{\pageheight}{\pagewidth}{*}
+\settrims{\outertrim}{\outertrim}
+
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}
+
+\setxlvchars
+\setlxvchars
+
+\setlength{\headheight}{\baselineskip}
+\setlength{\footskip}{\baselineskip * 2}
+\setlength{\headdrop}{\outermargin} % KDP compliant
+\setlength{\headsep}{0.25in}
+
+% Margins are applied after trimming, so no need to account for trim
+\setlrmarginsandblock{\innermargin}{\outermargin}{*}
+\setulmarginsandblock{\headheight + \headdrop + \headsep}{\footskip + \outermargin}{*}
+
+\checkandfixthelayout
+
+\usepackage{etoolbox}
+
+\newcommand{\authorandtitle}[2][]{
+    \addcontentsline{toc}{section}{#2}
+    {\noindent\large #2\par}
+    \ifstrempty{#1}{}{
+        {\noindent\small\textit{#1}\par}
+    }
+}
+
+\newcommand{\numerictitle}[1]{
+    \addcontentsline{toc}{section}{#1}
+    {\centering\large #1\par}
+}
+
+\newcommand{\beginessay}[0]{
+    \vspace{\baselineskip}
+}
+
+\begin{document}
