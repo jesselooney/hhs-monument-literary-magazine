@@ -11,7 +11,7 @@
 \setlength{\pagewidth}{6in}
 \setlength{\pageheight}{9in}
 
-\setlength{\outertrim}{0.125in} %% >= 0.125in (CHECK THESE NUMBERS WITH KDP)
+\setlength{\outertrim}{0in} %% >= 0.125in (CHECK THESE NUMBERS WITH KDP)
 
 \setlength{\innermargin}{0.625in} %% >= 0.375in
 \setlength{\outermargin}{0.5in} %% >= 0.25in
@@ -36,6 +36,13 @@
 \setulmarginsandblock{\headheight + \headdrop + \headsep}{\footskip + \outermargin}{*}
 
 \checkandfixthelayout
+
+\makepagestyle{contents}
+\makeheadrule{contents}{\textwidth}{\normalrulethickness}
+\makeoddhead{contents}{}{}{\textsc{Contents}}
+\makeevenhead{contents}{\textsc{Contents}}{}{}
+\makeoddfoot{contents}{}{}{\thepage}
+\makeevenfoot{contents}{\thepage}{}{}
 
 \makepagestyle{main}
 \makeheadrule{main}{\textwidth}{\normalrulethickness}
@@ -75,7 +82,7 @@
 }
 
 \newcommand{\prosetitle}[1]{
-    {\noindent\Large\textsc{#1}}\\[\baselineskip]
+    {\noindent\Large\textsc{#1}}\\
 }
 
 \newcommand{\poetrytitleandauthor}[2]{
@@ -99,13 +106,17 @@
     \clearpage
 }
 
+\usepackage{ragged2e}
+
 \newenvironment{prose}[3]{
     \clearpage
     % #1 is the type of prose e.g. fiction, review, etc.
     \index[#1]{\string\indexlisting{#2}{#3}{\thepage}}
     \setauthor{#3}
-    \prosetitle{#2}\par
+    \prosetitle{#2}
+    \begin{justify}
 }{
+    \end{justify}
     \clearpage
 }
 
@@ -119,9 +130,11 @@
     \clearpage
     \index[art]{\string\indexlisting{#1}{#2}{\thepage}}
     \setauthor{#2}
-    \centering\adjustbox{max width=\textwidth}{
-        \includegraphics[height=\textheight]{#3}
-    }
+    \begin{center}
+        \adjustbox{max width=\textwidth}{
+            \includegraphics[height=\textheight]{#3}
+        }
+    \end{center}
     \clearpage
 }
 
