@@ -13,8 +13,8 @@
 
 \setlength{\outertrim}{0.125in} %% >= 0.125in (CHECK THESE NUMBERS WITH KDP)
 
-\setlength{\innermargin}{0.375in} %% >= 0.375in
-\setlength{\outermargin}{0.25in} %% >= 0.25in
+\setlength{\innermargin}{0.625in} %% >= 0.375in
+\setlength{\outermargin}{0.5in} %% >= 0.25in
 
 \setstocksize{\pageheight + \outertrim * 2}{\pagewidth + \outertrim}
 \settrimmedsize{\pageheight}{\pagewidth}{*}
@@ -37,23 +37,94 @@
 
 \checkandfixthelayout
 
-\usepackage{etoolbox}
+\makepagestyle{main}
+\makeheadrule{main}{\textwidth}{\normalrulethickness}
+\makeoddhead{main}{}{}{\rightmark}
+\makeevenhead{main}{\rightmark}{}{}
+\makeoddfoot{main}{}{}{\thepage}
+\makeevenfoot{main}{\thepage}{}{}
 
-\newcommand{\authorandtitle}[2][]{
-    \addcontentsline{toc}{section}{#2}
-    {\noindent\large #2\par}
-    \ifstrempty{#1}{}{
-        {\noindent\small\textit{#1}\par}
+\usepackage{imakeidx}
+\makeindex[name=poetry,columns=1]
+\makeindex[name=essays,columns=1]
+\makeindex[name=fiction,columns=1]
+\makeindex[name=art,columns=1]
+
+\newcommand{\myprintindex}[2]{
+    \poetrytitle{#2}
+    \input{#1.ind}
+}
+
+\newcommand{\indexlisting}[3]{
+    {\textsc{#1} $|$ #2 \dotfill #3}
+}
+
+\usepackage{enumitem}
+
+% must strip .ind file of trailing numbers for this to look nice
+\renewenvironment{theindex}{
+    \begin{itemize}[label=]
+}{
+    \end{itemize}
+}
+
+\setlength{\vleftmargin}{0.25in}
+
+\newcommand{\poetrytitle}[1]{
+    {\noindent\large\textsc{#1}}\\
+}
+
+\newcommand{\prosetitle}[1]{
+    {\noindent\Large\textsc{#1}}\\[\baselineskip]
+}
+
+\newcommand{\poetrytitleandauthor}[2]{
+    \poetrytitle{#1}
+    {\noindent \textit{#2}}\\
+}
+
+\newcommand{\setauthor}[1]{
+    \markright{#1}
+}
+
+\newenvironment{poetry}[2]{
+    \clearpage
+    \newcommand{\tab}{\hspace{\vindent}}
+    \index[poetry]{\string\indexlisting{#1}{#2}{\thepage}}
+    \setauthor{#2}
+    \poetrytitle{#1}
+    \begin{verse}
+}{
+    \end{verse}
+    \clearpage
+}
+
+\newenvironment{prose}[3]{
+    \clearpage
+    % #1 is the type of prose e.g. fiction, review, etc.
+    \index[#1]{\string\indexlisting{#2}{#3}{\thepage}}
+    \setauthor{#3}
+    \prosetitle{#2}\par
+}{
+    \clearpage
+}
+
+\setlength{\stanzaskip}{\baselineskip * 1/2}
+
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\newcommand{\art}[3][Untitled]{
+    \clearpage
+    \index[art]{\string\indexlisting{#1}{#2}{\thepage}}
+    \setauthor{#2}
+    \centering\adjustbox{max width=\textwidth}{
+        \includegraphics[height=\textheight]{#3}
     }
+    \clearpage
 }
 
-\newcommand{\numerictitle}[1]{
-    \addcontentsline{toc}{section}{#1}
-    {\centering\large #1\par}
-}
-
-\newcommand{\beginessay}[0]{
-    \vspace{\baselineskip}
-}
+\usepackage{pdfpages}
 
 \begin{document}
