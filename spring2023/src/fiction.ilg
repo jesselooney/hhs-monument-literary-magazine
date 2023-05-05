@@ -1,6 +1,6 @@
 This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
-Scanning input file src/fiction.idx....done (1 entries accepted, 0 rejected).
+Scanning input file fiction.idx....done (1 entries accepted, 0 rejected).
 Sorting entries...done (0 comparisons).
-Generating output file src/fiction.ind....done (5 lines written, 0 warnings).
-Output written in src/fiction.ind.
-Transcript written in src/fiction.ilg.
+Generating output file fiction.ind....done (5 lines written, 0 warnings).
+Output written in fiction.ind.
+Transcript written in fiction.ilg.

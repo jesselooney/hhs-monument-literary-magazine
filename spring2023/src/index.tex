@@ -1,12 +1,18 @@
 \frontmatter
 \pagestyle{empty}
 
-\include{titlepage}
+\include{title}
 \include{copyright}
 \include{dedication}
 \include{epigraph}
 
 \pagestyle{contents}
+% UPDATE THESE
+\newcommand{\notetitle}{A Note on Poetic Forms}
+\newcommand{\notepage}{11}
+\begin{itemize}[label=]
+    \item {\textit{\textsc{\notetitle}} \dotfill \notepage}
+\end{itemize}
 \myprintindex{poetry}{Poetry} % comment this to generate index
 \myprintindex{essay}{Essays} % comment this to generate index
 \myprintindex{fiction}{Fiction} % comment this to generate index
@@ -19,3 +25,6 @@
 \pagestyle{main}
 
 \include{mainmatter}
+
+\backmatter
+\cleartoverso
