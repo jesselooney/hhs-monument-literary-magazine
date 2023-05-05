@@ -37,19 +37,19 @@
 
 \checkandfixthelayout
 
-\makepagestyle{contents}
+\makepagestyle{footerpage}
+\makeoddfoot{footerpage}{}{}{\thepage}
+\makeevenfoot{footerpage}{\thepage}{}{}
+
+\copypagestyle{contents}{footerpage}
 \makeheadrule{contents}{\textwidth}{\normalrulethickness}
 \makeoddhead{contents}{}{}{\textsc{Contents}}
 \makeevenhead{contents}{\textsc{Contents}}{}{}
-\makeoddfoot{contents}{}{}{\thepage}
-\makeevenfoot{contents}{\thepage}{}{}
 
-\makepagestyle{main}
+\copypagestyle{main}{footerpage}
 \makeheadrule{main}{\textwidth}{\normalrulethickness}
 \makeoddhead{main}{}{}{\rightmark}
 \makeevenhead{main}{\rightmark}{}{}
-\makeoddfoot{main}{}{}{\thepage}
-\makeevenfoot{main}{\thepage}{}{}
 
 \usepackage{imakeidx}
 \makeindex[name=poetry,columns=1]
@@ -85,6 +85,12 @@
     {\noindent\Large\textsc{#1}}\\
 }
 
+\newcommand{\centertitle}[1]{
+    \begin{center}
+        \textsc{#1}
+    \end{center}
+}
+
 \newcommand{\poetrytitleandauthor}[2]{
     \poetrytitle{#1}
     {\noindent \textit{#2}}\\
@@ -94,10 +100,16 @@
     \markright{#1}
 }
 
+\newcommand{\myindex}[3]{
+    \index[#1]{\string\indexlisting{#2}{#3}{\thepage}}
+}
+
+\newcommand{\various}{\textit{various}}
+
 \newenvironment{poetry}[2]{
     \clearpage
     \newcommand{\tab}{\hspace{\vindent}}
-    \index[poetry]{\string\indexlisting{#1}{#2}{\thepage}}
+    \myindex{poetry}{#1}{#2}
     \setauthor{#2}
     \poetrytitle{#1}
     \begin{verse}
@@ -111,7 +123,7 @@
 \newenvironment{prose}[3]{
     \clearpage
     % #1 is the type of prose e.g. fiction, review, etc.
-    \index[#1]{\string\indexlisting{#2}{#3}{\thepage}}
+    \myindex{#1}{#2}{#3}
     \setauthor{#3}
     \prosetitle{#2}
     \begin{justify}
@@ -126,10 +138,12 @@
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
-\newcommand{\art}[3][Untitled]{
+\newcommand\notitle{Untitled}
+\newcommand\noartist{\textit{unknown artist}}
+\newcommand{\art}[3]{
     \clearpage
-    \index[art]{\string\indexlisting{#1}{#2}{\thepage}}
-    \setauthor{#2}
+    % \index[art]{\string\indexlisting{#1}{#2}{\thepage}}
+    \markright{\textsc{#1} $|$ #2}
     \begin{center}
         \adjustbox{max width=\textwidth}{
             \includegraphics[height=\textheight]{#3}

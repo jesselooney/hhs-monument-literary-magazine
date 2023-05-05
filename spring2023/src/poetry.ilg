@@ -1,6 +1,6 @@
 This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
-Scanning input file src/poetry.idx....done (21 entries accepted, 0 rejected).
-Sorting entries....done (100 comparisons).
-Generating output file src/poetry.ind....done (25 lines written, 0 warnings).
-Output written in src/poetry.ind.
-Transcript written in src/poetry.ilg.
+Scanning input file poetry.idx....done (24 entries accepted, 0 rejected).
+Sorting entries....done (105 comparisons).
+Generating output file poetry.ind....done (28 lines written, 0 warnings).
+Output written in poetry.ind.
+Transcript written in poetry.ilg.
